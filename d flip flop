@@ -1,0 +1,22 @@
+module dff(d,clk,q);
+input d,clk;
+output q;
+reg q;
+initial 
+  q=0;
+always @(negedge clk)
+  q=d;
+endmodule
+
+module dff_tb;
+reg d,clk;
+wire q;
+dff dut(d,clk,q);
+initial 
+  begin
+    d=0;clk=0;
+    #100 $stop;
+  end
+always #5 d=~d;
+always #3 clk=~clk;
+endmodule
