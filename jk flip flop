@@ -1,0 +1,43 @@
+// Program and Stimulus (Testbench) Program:
+
+// PROGRAM (JK Flipflop):
+module jk_ff(j, k, clk, q);
+    input j, k, clk;
+    output q;
+    reg q;
+
+    initial 
+        q = 0;
+
+    always @(negedge clk) 
+    begin
+        if (j == 0 && k == 0)
+            q = q;
+        else if (j == 0 && k == 1)
+            q = 0;
+        else if (j == 1 && k == 0)
+            q = 1;
+        else 
+            q = ~q;
+    end
+endmodule
+
+// Stimulus (Testbench):
+module jk_ff_tb;
+    reg j, k, clk;
+    wire q;
+
+    jk_ff dut(j, k, clk, q);
+
+    initial
+    begin
+        clk = 0;
+        j = 0; k = 0;
+        #12 j = 0; k = 1;
+        #10 j = 1; k = 0;
+        #10 j = 1; k = 1;
+        #100 $stop; 
+    end
+
+    always #5 clk = ~clk;
+endmodule
