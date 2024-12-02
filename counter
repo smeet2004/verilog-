@@ -1,0 +1,45 @@
+module counter(clk,q);
+input clk;
+output [3:0]q;
+reg [3:0]q=0;
+always @(posedge clk)
+q=q+1;
+endmodule
+
+module countertb;
+reg clk;
+wire [3:0]q;
+counter dut (clk,q);
+
+initial 
+begin
+clk=0;
+$monitor("time=%d, q=%d", $time, q);
+#200 $stop; 
+end
+
+always #5 clk=~clk;
+endmodule
+
+Test bench:
+
+module counter(clk,q);
+input clk;
+output [3:0]q;
+reg [3:0]q=0;
+always @(posedge clk)
+q=q+1; 
+endmodule
+
+module countertb;
+reg clk;
+wire [3:0]q;
+counter dut (clk,q);
+initial 
+begin
+clk=0;
+$monitor("time=%d q=%d", $time,q);
+#200 $stop;
+end
+always #5 clk=~clk;
+endmodule
