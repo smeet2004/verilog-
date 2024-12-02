@@ -1,0 +1,27 @@
+module nand_switch(a,b,y);
+input a,b;
+output y;
+wire w;
+supply1 vdd;
+supply0 gnd;
+pmos p1(y,vdd,a);
+pmos p2(y,vdd,b);
+nmos n1(y,w,b);
+nmos n2(w,gnd,a);
+endmodule
+
+module nand_switchtb;
+reg a,b;
+wire y;
+
+nand_switch dut(a,b,y);
+
+initial
+begin
+a=0; b=0;
+#10 a=0; b=1;
+#10 a=1; b=0;
+#10 a=1; b=1;
+#200 $stop;
+end
+endmodule
