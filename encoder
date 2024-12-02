@@ -1,0 +1,21 @@
+module enc42(I0,I1,I2,I3,A,B);
+input I0,I1,I2,I3;
+output A,B;
+assign A=((~I0&~I1)&(I2^I3));
+assign B=((I0&~I2)&(I1^I3));
+endmodule
+
+module enc42tb;
+reg I0,I1,I2,I3;
+wire A,B;
+enc42 dut(I0,I1,I2,I3,A,B);
+initial
+begin
+$monitor(“I0=%b, I1=%b, I2=%b, I3=%b, A=%b, B=%b”, I0,I1,I2,I3,A,B);
+{I0,I1,I2,I3} = 4’b1000;
+#10 {I0,I1,I2,I3} = 4’b0100;
+#10 {I0,I1,I2,I3} = 4’b0010;
+#10 {I0,I1,I2,I3} = 4’b0001;
+#10 $stop;
+end
+endmodule
